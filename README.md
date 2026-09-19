@@ -237,5 +237,3 @@ This research is funded by Atlantic Technological University, Ireland, through t
 
 ## License
 Released under the MIT License. See [`LICENSE`](LICENSE).
-
-Released under the MIT License. See [`LICENSE`](LICENSE).
