@@ -11,6 +11,26 @@ Atlantic Technological University, Donegal, Ireland.
 
 GMACORE-TM is a self-supervised pretraining framework for molecular graphs that addresses two coupled sources of instability in queue-based molecular contrastive learning: the limited adaptability of handcrafted graph augmentations, and the progressive staleness of negative representations stored in a memory queue as the encoder evolves.
 
+### GMACORE Framework
+
+<p align="center">
+  <img src="Images/GAN_CL_Block_Diagram_v05.png" alt="GMACORE framework" width="850">
+</p>
+
+<p align="center">
+  <em>GMACORE generative adversarial contrastive learning framework.</em>
+</p>
+
+### GMACORE-TM Framework
+
+<p align="center">
+  <img src="Images/Momentum_Encoder_v02.png" alt="GMACORE-TM framework" width="850">
+</p>
+
+<p align="center">
+  <em>GMACORE-TM framework incorporating the momentum encoder and age-weighted memory queue.</em>
+</p>
+
 The pipeline is
 
 ```
