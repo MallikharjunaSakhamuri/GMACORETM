@@ -150,5 +150,20 @@ cannot be resolved from the code alone.
    bond-length feature; the Limitations section states that three-dimensional
    information is not incorporated. The implementation follows the manuscript.
 
-Resolving items 1, 2, 3 and 6 is a prerequisite for the repository to
+7. **QM9 target set.** QM9 is a 12-task benchmark in DeepChem
+   (`mu, alpha, homo, lumo, gap, r2, zpve, cv, u0, u298, h298, g298`). Table 4
+   reports a single RMSE of 2.057 for QM9 without stating which targets it
+   covers. Those targets differ by orders of magnitude in scale, so a single
+   averaged RMSE is not interpretable or reproducible unless the target set is
+   fixed. The repository defaults to a documented six-target subset and exposes
+   `target_columns`, but the manuscript must state which targets were used.
+
+8. **QM9 source file.** DeepChem's `load_qm9` reads `qm9.sdf` (from
+   `qm9.tar.gz`), not `qm9.csv`. This repository uses `qm9.csv` because the
+   pipeline is SMILES-driven throughout. The two sources differ in their energy
+   columns: the SDF exposes atomization energies (`u0_atom`, `u298_atom`, and
+   so on, in kcal/mol) whereas the CSV carries total energies in Hartree.
+   Confirm which was used before quoting a QM9 RMSE.
+
+Resolving items 1, 2, 3, 6 and 7 is a prerequisite for the repository to
 withstand the reproducibility check that Reviewer 1, Comment 7 is asking for.
