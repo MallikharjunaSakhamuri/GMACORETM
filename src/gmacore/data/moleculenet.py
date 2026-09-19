@@ -25,6 +25,29 @@ from .featurizer import FeaturizerConfig, MolecularFeaturizer
 
 logger = logging.getLogger(__name__)
 
+QM9_TASKS_DEEPCHEM = [
+    "mu",
+    "alpha",
+    "homo",
+    "lumo",
+    "gap",
+    "r2",
+    "zpve",
+    "cv",
+    "u0",
+    "u298",
+    "h298",
+    "g298",
+]
+
+# QM9 is a 12-task benchmark in DeepChem. The manuscript reports a single RMSE
+# for QM9, which does not identify which targets it covers, and the targets
+# differ by orders of magnitude in scale, so the reported value is not
+# reproducible without fixing this set explicitly.
+#
+# The default below is the six-target subset used for the reported experiments.
+# Override it per run with `target_columns`, or pass QM9_TASKS_DEEPCHEM for the
+# full DeepChem task set.
 QM9_DEFAULT_TARGETS = ["mu", "alpha", "homo", "lumo", "gap", "cv"]
 
 
@@ -42,7 +65,16 @@ class BenchmarkSpec:
     url: Optional[str] = None
 
 
-_DEEPCHEM = "https://deepchemdata.s3.us-west-1.amazonaws.com/datasets"
+# Download URLs, SMILES field names, task columns and default splitters below
+# are taken from the DeepChem MoleculeNet loaders, so that this repository uses
+# the same files and the same label columns as the published benchmarks:
+# github.com/deepchem/deepchem/tree/master/deepchem/molnet/load_function
+#
+# Verified against that source: bace (feature_field "mol", BACE_CLASSIFICATION_TASKS
+# ["Class"]), bbbp ("smiles", ["p_np"]), clintox ("smiles", ["FDA_APPROVED",
+# "CT_TOX"]), hiv ("smiles", ["HIV_active"]), delaney ("smiles", ["measured log
+# solubility in mols per litre"]), lipo ("smiles", ["exp"]).
+_DEEPCHEM = "https://deepchemdata.s3-us-west-1.amazonaws.com/datasets"
 
 BENCHMARKS: Dict[str, BenchmarkSpec] = {
     "bace": BenchmarkSpec(
@@ -185,9 +217,21 @@ class MoleculeNetDataset(Dataset):
             )
 
         frame = pd.read_csv(csv_path)
+
+        if spec.smiles_column not in frame.columns:
+            raise KeyError(
+                f"SMILES column '{spec.smiles_column}' not present in {csv_path}. "
+                f"Available columns: {list(frame.columns)}"
+            )
+
         missing = [c for c in spec.target_columns if c not in frame.columns]
         if missing:
-            raise KeyError(f"Columns {missing} not present in {csv_path}")
+            # QM9 in particular ships several column namings depending on the
+            # source file, so report what the file actually contains.
+            raise KeyError(
+                f"Target columns {missing} not present in {csv_path}. "
+                f"Available columns: {list(frame.columns)}"
+            )
 
         smiles = frame[spec.smiles_column].astype(str).tolist()
         labels = frame[spec.target_columns].astype(float).values.tolist()
