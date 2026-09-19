@@ -236,5 +236,6 @@ See [`docs/REPRODUCING.md`](docs/REPRODUCING.md) for the hardware, the exact com
 This research is funded by Atlantic Technological University, Ireland, through the Postgraduate Research Training Programme in Modelling and Computation for Health and Society (MOCHAS).
 
 ## License
+Released under the MIT License. See [`LICENSE`](LICENSE).
 
 Released under the MIT License. See [`LICENSE`](LICENSE).
