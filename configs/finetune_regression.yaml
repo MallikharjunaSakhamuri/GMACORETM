@@ -1,0 +1,37 @@
+# Downstream regression benchmarks, reported as RMSE, MAE and R-squared.
+# QM9 uses a random split by convention; ESOL uses a scaffold split. Set
+# data.split per run, or rely on each benchmark's registered default by
+# removing the data.split key below.
+
+datasets: [esol, qm9]
+seeds: [0, 1, 2]
+output_dir: runs/finetune/regression
+
+data:
+  root: data/moleculenet
+  cache_dir: data/cache
+  split: scaffold
+  split_seed: 42
+  add_explicit_hydrogens: false
+  generate_conformer: false
+
+finetune:
+  protocol: finetune          # "finetune" or "linear_probe"
+  epochs: 100
+  batch_size: 32
+  encoder_lr: 0.0001
+  head_lr: 0.001
+  weight_decay: 0.000001
+  dropout: 0.20
+  head_hidden_dim: null
+  patience: 30
+  grad_clip: 5.0
+  device: cuda
+  normalize_targets: true
+
+# Used only with --no-pretrain, to build the randomly initialized control.
+encoder:
+  hidden_dim: 128
+  output_dim: 128
+  num_layers: 3
+  dropout: 0.10

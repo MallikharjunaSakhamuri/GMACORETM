@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+title: "GMACORE-TM: stability-aware generative adversarial contrastive learning for molecular graphs"
+message: "If you use this software, please cite the accompanying article."
+type: software
+authors:
+  - family-names: Sakhamuri
+    given-names: Mallikharjuna Rao
+    affiliation: Atlantic Technological University, Donegal, Ireland
+    email: mallikharjuna.sakhamuri@research.atu.ie
+  - family-names: Henna
+    given-names: Shagufta
+    affiliation: Atlantic Technological University, Donegal, Ireland
+  - family-names: Creedon
+    given-names: Leo
+    affiliation: Atlantic Technological University, Ireland
+  - family-names: Meehan
+    given-names: Kevin
+    affiliation: Atlantic Technological University, Ireland
+repository-code: "https://github.com/MallikharjunaSakhamuri/GMACORETM"
+license: MIT
+version: 1.0.0
+preferred-citation:
+  type: article
+  title: "Self-supervised molecular graph representation learning via stability-aware generative adversarial contrastive learning"
+  authors:
+    - family-names: Sakhamuri
+      given-names: Mallikharjuna Rao
+    - family-names: Henna
+      given-names: Shagufta
+    - family-names: Creedon
+      given-names: Leo
+    - family-names: Meehan
+      given-names: Kevin

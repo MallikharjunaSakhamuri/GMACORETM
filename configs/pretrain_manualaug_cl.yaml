@@ -1,0 +1,49 @@
+# ManualAug-CL baseline: handcrafted augmentations within a contrastive
+# learning framework, with no generator, momentum encoder or age weighting.
+
+data:
+  smiles_file: data/pubchem/pubchem_10m_clean.txt
+  cache_path: data/cache/pretrain_graphs.pt
+  limit: null                 # null uses the full corpus
+  add_explicit_hydrogens: false
+  generate_conformer: false   # the reported experiments are 2D only
+  min_heavy_atoms: 2
+  max_heavy_atoms: null
+
+framework:
+  variant: manualaug_cl
+
+  hidden_dim: 128
+  output_dim: 128
+  num_layers: 3
+  dropout: 0.10
+
+  manual_augment:
+    node_drop_rate: 0.20
+    edge_drop_rate: 0.20
+    feature_mask_rate: 0.20
+    operations: [node_drop, edge_drop, feature_mask]
+
+  temperature: 0.07
+  queue_size: 50000
+
+  momentum: 0.999
+  decay: 0.99
+
+  similarity_weight: 0.10
+  minimax_discriminator: false
+
+pretrain:
+  epochs: 150
+  batch_size: 64
+  encoder_lr: 0.0005
+  generator_lr: 0.0001
+  discriminator_lr: 0.0001
+  weight_decay: 0.0001
+  grad_clip: 5.0
+  num_workers: 0
+  checkpoint_every: 10
+  embedding_every: 10
+  output_dir: runs/manualaug_cl
+  seed: 42
+  device: cuda

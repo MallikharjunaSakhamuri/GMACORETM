@@ -1,0 +1,23 @@
+# Core numerical and deep learning stack.
+# PyTorch Geometric wheels are tied to the installed torch and CUDA versions.
+# See docs/INSTALL.md for the matching index URL.
+torch>=2.0.0
+torch-geometric>=2.4.0
+
+# Cheminformatics
+rdkit>=2023.3.1
+
+# Scientific stack
+numpy>=1.24.0
+pandas>=2.0.0
+scikit-learn>=1.3.0
+scipy>=1.10.0
+
+# Dimensionality reduction and visualization
+umap-learn>=0.5.4
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Configuration and utilities
+PyYAML>=6.0
+tqdm>=4.65.0

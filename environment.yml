@@ -1,0 +1,25 @@
+# Conda environment for CPU-based development and testing.
+# For GPU training, install the CUDA build of PyTorch and the matching
+# PyTorch Geometric wheels as described in docs/INSTALL.md.
+name: gmacore-tm
+channels:
+  - pytorch
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pytorch>=2.0
+  - rdkit>=2023.03
+  - numpy>=1.24
+  - pandas>=2.0
+  - scikit-learn>=1.3
+  - scipy>=1.10
+  - matplotlib>=3.7
+  - seaborn>=0.12
+  - pyyaml>=6.0
+  - tqdm>=4.65
+  - pip
+  - pip:
+      - torch-geometric>=2.4.0
+      - umap-learn>=0.5.4
+      - pytest>=7.4.0
+      - ruff>=0.1.0
